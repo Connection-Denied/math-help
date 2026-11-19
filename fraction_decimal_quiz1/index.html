@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multiplying &amp; Dividing Fractions and Decimals Practice Quiz</title>
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --surface: #ffffff;
+    --surface-soft: #fbf9f5;
+    --text: #1d2430;
+    --muted: #4f5b69;
+    --border: #ddd5c8;
+    --track: #e9e2d6;
+    --accent: #0e6b70;
+    --accent-hover: #0a5559;
+    --accent-soft: #e2f1f0;
+    --accent-line: #8fc3c0;
+    --success: #17663a;
+    --success-bg: #e8f5ed;
+    --success-border: #7cc39a;
+    --error: #a3241b;
+    --error-bg: #fdeeec;
+    --error-border: #e4a19b;
+    --info: #3b4a8f;
+    --info-bg: #eef0fa;
+    --info-border: #a9b3df;
+    --focus: #1b4fd8;
+    --radius: 14px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+
+  .page {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+  }
+
+  h1 {
+    margin: 0 0 20px;
+    font-size: clamp(1.5rem, 4.6vw, 2.1rem);
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  h2, h3 { line-height: 1.25; }
+  h2 { margin: 0; font-size: 1.35rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0 0 12px; }
+
+  [tabindex="-1"]:focus { outline: none; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+  .sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(40, 30, 10, 0.04), 0 4px 14px rgba(60, 40, 10, 0.05);
+    padding: clamp(18px, 4.5vw, 32px);
+  }
+
+  .expr {
+    font-variant-numeric: tabular-nums;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
+  .muted { color: var(--muted); }
+
+  .icon {
+    width: 1.1em; height: 1.1em;
+    flex: none;
+    vertical-align: -0.15em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Buttons */
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    min-height: 48px;
+    padding: 12px 28px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-secondary { background: var(--surface); color: var(--accent); border-color: var(--accent); }
+  .btn-secondary:hover { background: var(--accent-soft); }
+
+  /* Intro */
+  .intro h2 { margin-bottom: 12px; }
+  .rule {
+    margin: 18px 0;
+    padding: 16px 18px;
+    border-left: 5px solid var(--accent);
+    border-radius: 8px;
+    background: var(--accent-soft);
+  }
+  .rule-title { margin-bottom: 4px; font-weight: 700; color: var(--accent-hover); }
+  .rule-example { margin: 8px 0 0; font-size: 1.3rem; }
+  .facts { margin: 0; padding-left: 1.25em; }
+  .facts li + li { margin-top: 6px; }
+
+  /* Progress */
+  .progress-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4px 12px;
+    margin-bottom: 10px;
+  }
+  .kind { font-size: 0.95rem; font-weight: 600; color: var(--muted); }
+  .progress-track {
+    height: 10px;
+    margin-bottom: 24px;
+    border-radius: 999px;
+    background: var(--track);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent);
+    transition: width 0.35s ease;
+  }
+
+  /* Multiple choice */
+  .choices {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  .prompt {
+    padding: 0;
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  .prompt .expr { font-size: 1.6rem; }
+  .prompt-word { font-size: 1.2rem; font-weight: 400; }
+  .choice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    min-height: 56px;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    cursor: pointer;
+  }
+  .choice:hover { border-color: var(--accent); }
+  .choice:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+  .choice:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .choice input {
+    width: 22px; height: 22px;
+    margin: 0;
+    flex: none;
+    accent-color: var(--accent);
+    cursor: inherit;
+  }
+  .choice input:focus-visible { outline: none; }
+  .choice .letter { min-width: 1.5em; font-weight: 700; color: var(--muted); }
+  .choice .expr { font-size: 1.35rem; }
+  .choice.is-locked { cursor: default; }
+  .choice.is-locked:hover { border-color: var(--border); }
+  .choice.is-wrong, .choice.is-wrong:hover { border-color: var(--error-border); background: var(--error-bg); }
+  .choice.is-correct, .choice.is-correct:hover { border-color: var(--success); background: var(--success-bg); }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .is-wrong .status, .status.wrong { color: var(--error); }
+  .is-correct .status, .status.correct { color: var(--success); }
+
+  /* Feedback */
+  .feedback {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 14px 18px;
+    border: 2px solid;
+    border-radius: 12px;
+    animation: fade-in 0.2s ease;
+  }
+  .feedback p:last-child { margin-bottom: 0; }
+  .feedback-title { margin-bottom: 4px; font-weight: 700; }
+  .feedback-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 30px; height: 30px;
+    margin-top: 1px;
+    border-radius: 50%;
+    color: #fff;
+  }
+  .feedback-icon .icon { width: 18px; height: 18px; }
+  .feedback.success { background: var(--success-bg); border-color: var(--success-border); }
+  .feedback.success .feedback-icon { background: var(--success); }
+  .feedback.error, .feedback.reveal { background: var(--error-bg); border-color: var(--error-border); }
+  .feedback.error .feedback-icon, .feedback.reveal .feedback-icon { background: var(--error); }
+  .feedback.info { background: var(--info-bg); border-color: var(--info-border); }
+  .feedback.info .feedback-icon { background: var(--info); }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Matching */
+  .match-help { color: var(--muted); font-size: 1rem; }
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    margin-top: 16px;
+  }
+  .match-col h3 { margin: 0 0 8px; color: var(--muted); font-size: 1rem; }
+  .match-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .match-item {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    width: 100%;
+    min-height: 72px;
+    padding: 8px 12px 10px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .match-item:hover:not(:disabled) { border-color: var(--accent); }
+  .match-item:disabled { cursor: default; }
+  .match-top { display: flex; align-items: center; gap: 8px; min-height: 26px; }
+  .match-tag { font-weight: 700; color: var(--muted); }
+  .match-item .expr {
+    font-size: clamp(1.05rem, 4.2vw, 1.3rem);
+    white-space: normal;
+  }
+  .badge {
+    margin-left: auto;
+    padding: 1px 9px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-hover);
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .match-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .match-item.is-paired { border-color: var(--accent-line); }
+  .match-item.is-active {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+  .match-item.is-active .match-state { color: var(--accent-hover); }
+  .match-item.is-correct { border-color: var(--success); background: var(--success-bg); }
+  .match-item.is-correct .match-state { color: var(--success); }
+  .match-item.is-wrong { border-color: var(--error-border); background: var(--error-bg); }
+  .match-item.is-wrong .match-state { color: var(--error); }
+
+  .pairs {
+    margin-top: 20px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface-soft);
+  }
+  .pairs h3 { margin: 0 0 8px; }
+  .pairs ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .pair-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    min-height: 44px;
+  }
+  .pair-row + .pair-row { padding-top: 8px; border-top: 1px solid var(--border); }
+  .pair-row .status { margin-left: auto; }
+  .pair-row .status + .remove-btn { margin-left: 0; }
+  .pair-detail { flex-basis: 100%; margin: 0; font-size: 1rem; }
+  .remove-btn {
+    display: grid;
+    place-items: center;
+    width: 44px; height: 44px;
+    margin-left: auto;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .remove-btn:hover { border-color: var(--error-border); color: var(--error); }
+
+  /* Results */
+  .results h2 { margin-bottom: 16px; text-align: center; }
+  .score-summary { margin-bottom: 20px; text-align: center; }
+  .score-big { margin: 0; font-size: 2.6rem; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .score-big small { font-size: 1.1rem; font-weight: 600; color: var(--muted); }
+  .score-pct { margin: 4px 0 8px; font-size: 1.5rem; font-weight: 700; color: var(--accent-hover); }
+  .result-message {
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    text-align: center;
+  }
+  .review { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .review-item {
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--success);
+    border-radius: 10px;
+  }
+  .review-item.is-wrong { border-left-color: var(--error); }
+  .review-item.is-partial { border-left-color: #b26b00; }
+  .review-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    margin-bottom: 6px;
+  }
+  .review-head h4 { margin: 0; font-size: 1rem; }
+  .review-head .status { margin-left: 0; }
+  .review-points { margin-left: auto; font-size: 0.95rem; color: var(--muted); }
+  .review dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2px 12px;
+    margin: 8px 0;
+  }
+  .review dt { color: var(--muted); }
+  .review dd { margin: 0; }
+  .review-note { font-size: 0.95rem; font-style: italic; color: var(--muted); }
+  .review-expl { margin-bottom: 0; font-size: 1rem; }
+  .review-pairs { display: grid; gap: 10px; margin: 8px 0 0; padding: 0; list-style: none; }
+  .review-pairs li { font-size: 1rem; }
+
+  @media (max-width: 480px) {
+    body { font-size: 1.0625rem; }
+    .actions .btn { flex: 1; }
+    .match-grid { gap: 10px; }
+    .match-item { padding: 8px 10px 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Multiplying &amp; Dividing Fractions and Decimals Practice Quiz</h1>
+  </header>
+  <main id="app">
+    <noscript><p class="card">This quiz needs JavaScript turned on to run.</p></noscript>
+  </main>
+  <!-- Screen reader announcements for feedback (the quiz card re-renders, so this lives outside it). -->
+  <div id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   QUIZ DATA: edit or add questions here.
+
+   Write fractions as "3/4" and mixed numbers as "2 1/2". Use the
+   characters × and ÷ for multiply and divide. A hyphen "-" is shown as
+   a proper minus sign, so avoid hyphenated words like "two-digit".
+
+   Multiple-choice question:
+     {
+       type: "mc",
+       id: "unique-id",
+       expression: "2/3 × 3/5",        // shown as "What is 2/3 × 3/5?"
+       text: "...",                     // optional: word problem shown instead of "What is ...?"
+       choices: ["2/5", "5/8", "10/9", "5/15"],
+       answer: 0,                       // index into choices (0 = A, 1 = B, ...)
+       hint: "...",                     // shown after a first wrong try
+       explanation: "..."               // shown when finished and in the review
+     }
+
+   Matching activity (one point per pair):
+     {
+       type: "match",
+       id: "unique-id",
+       prompt: "...",
+       left:  [{ id, text }, ...],
+       right: [{ id, text }, ...],      // initial display order on the right
+       shuffleRight: false,             // true = shuffle the right column each attempt
+       answers: { leftId: rightId },    // the correct pairs
+       explanations: { leftId: "..." }  // why each pair matches
+     }
+   ===================================================================== */
+const QUIZ_QUESTIONS = [
+  {
+    type: "match",
+    id: "match-1",
+    prompt: "Match each expression on the left with an equivalent expression or value on the right.",
+    left: [
+      { id: "L1", text: "3/4 ÷ 1/2" },
+      { id: "L2", text: "0.5 × 0.6" },
+      { id: "L3", text: "5 ÷ 1/3" },
+      { id: "L4", text: "1.2 ÷ 0.4" }
+    ],
+    right: [
+      { id: "RA", text: "12 ÷ 4" },
+      { id: "RB", text: "3/4 × 2" },
+      { id: "RC", text: "15" },
+      { id: "RD", text: "0.3" }
+    ],
+    shuffleRight: false,
+    answers: { L1: "RB", L2: "RD", L3: "RC", L4: "RA" },
+    explanations: {
+      L1: "Dividing by 1/2 is the same as multiplying by its reciprocal, 2: 3/4 ÷ 1/2 = 3/4 × 2 = 1 1/2.",
+      L2: "Multiply 5 × 6 = 30. There are two decimal places in all, so 0.5 × 0.6 = 0.30 = 0.3.",
+      L3: "Dividing by 1/3 is the same as multiplying by 3: 5 ÷ 1/3 = 5 × 3 = 15.",
+      L4: "Move the decimal point one place right in both numbers: 1.2 ÷ 0.4 = 12 ÷ 4 = 3."
+    }
+  },
+  {
+    type: "mc",
+    id: "q2",
+    expression: "2/3 × 3/5",
+    choices: ["2/5", "5/8", "10/9", "5/15"],
+    answer: 0,
+    hint: "Multiply the tops (numerators) together and the bottoms (denominators) together, then simplify.",
+    explanation: "2/3 × 3/5 = (2 × 3)/(3 × 5) = 6/15, which simplifies to 2/5."
+  },
+  {
+    type: "mc",
+    id: "q3",
+    expression: "3/4 ÷ 3/8",
+    choices: ["9/32", "2", "1/2", "6"],
+    answer: 1,
+    hint: "Flip the second fraction and multiply: 3/4 × 8/3.",
+    explanation: "3/4 ÷ 3/8 = 3/4 × 8/3 = 24/12 = 2."
+  },
+  {
+    type: "mc",
+    id: "q4",
+    expression: "2 1/2 × 1 1/5",
+    choices: ["2 1/10", "2", "3 1/2", "3"],
+    answer: 3,
+    hint: "Change each mixed number to an improper fraction first: 2 1/2 = 5/2 and 1 1/5 = 6/5.",
+    explanation: "2 1/2 × 1 1/5 = 5/2 × 6/5 = 30/10 = 3."
+  },
+  {
+    type: "mc",
+    id: "q5",
+    expression: "0.4 × 0.7",
+    choices: ["2.8", "1.1", "0.28", "0.028"],
+    answer: 2,
+    hint: "Multiply 4 × 7, then count the total number of decimal places in both numbers.",
+    explanation: "4 × 7 = 28. There are two decimal places in all, so 0.4 × 0.7 = 0.28."
+  },
+  {
+    type: "mc",
+    id: "q6",
+    expression: "3.6 ÷ 0.9",
+    choices: ["0.4", "4", "40", "3.24"],
+    answer: 1,
+    hint: "Move the decimal point one place right in both numbers so you are dividing by a whole number.",
+    explanation: "3.6 ÷ 0.9 = 36 ÷ 9 = 4."
+  },
+  {
+    type: "mc",
+    id: "q7",
+    expression: "1 1/2 ÷ 3/4",
+    choices: ["2", "1 1/8", "1/2", "4 1/2"],
+    answer: 0,
+    hint: "Write 1 1/2 as 3/2, then multiply by the reciprocal of 3/4.",
+    explanation: "1 1/2 ÷ 3/4 = 3/2 × 4/3 = 12/6 = 2."
+  },
+  {
+    type: "mc",
+    id: "q8",
+    text: "A basket holds 24 apples. Students eat 3/8 of the apples at snack time. How many apples are left in the basket?",
+    expression: "24 × 3/8",
+    choices: ["9", "15", "21", "8"],
+    answer: 1,
+    hint: "First find how many apples were eaten: 24 × 3/8. Then subtract that from 24.",
+    explanation: "24 × 3/8 = 9 apples were eaten, so 24 - 9 = 15 apples are left. Another way: 5/8 of the apples are left, and 24 × 5/8 = 15."
+  },
+  {
+    type: "mc",
+    id: "q9",
+    text: "Ana buys 2.5 pounds of grapes. She uses 0.4 of the grapes to make fruit cups. How many pounds of grapes are left?",
+    expression: "2.5 × 0.4",
+    choices: ["1", "0.6", "1.5", "2.1"],
+    answer: 2,
+    hint: "First find how many pounds she used: 2.5 × 0.4. Then subtract that from 2.5.",
+    explanation: "2.5 × 0.4 = 1 pound was used, so 2.5 - 1 = 1.5 pounds of grapes are left."
+  }
+];
+
+/* Settings */
+const MAX_ATTEMPTS = 2; // first try + one retry, then the answer is revealed
+const KEY_RULE = "Remember: to divide by a fraction, multiply by its reciprocal. To multiply fractions, multiply the tops and multiply the bottoms.";
+const MATCH_GOAL = "Look for an expression with the same value. For example, 1/2 ÷ 1/4 is the same as 1/2 × 4.";
+const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"];
+
+/* =====================================================================
+   STATE
+   Everything the page shows is drawn from this one object, so resizing
+   the window never loses progress. Nothing is saved to the browser.
+   ===================================================================== */
+let state = createInitialState();
+let pendingFocusKey = null;
+
+function createInitialState() {
+  return {
+    screen: "intro", // "intro" | "quiz" | "results"
+    index: 0,
+    responses: QUIZ_QUESTIONS.map(createResponse)
+  };
+}
+
+function createResponse(question) {
+  const base = { attempts: 0, completed: false, points: 0, message: null };
+  if (question.type === "mc") {
+    // history: every choice the student checked, in order
+    return { ...base, selected: null, wrong: [], history: [] };
+  }
+  const rightIds = question.right.map((item) => item.id);
+  return {
+    ...base,
+    pairs: {},          // leftId -> rightId (the student's current pairing)
+    activeLeft: null,   // left item waiting for a partner
+    activeRight: null,  // right item waiting for a partner
+    results: {},        // leftId -> "correct" | "wrong" from the last check
+    locked: [],         // leftIds confirmed correct on the first try
+    rightOrder: question.shuffleRight ? shuffle(rightIds) : rightIds
+  };
+}
+
+function currentQuestion() { return QUIZ_QUESTIONS[state.index]; }
+function currentResponse() { return state.responses[state.index]; }
+
+function pointsPossible(question) {
+  return question.type === "match" ? question.left.length : 1;
+}
+function totalPoints() {
+  return QUIZ_QUESTIONS.reduce((sum, q) => sum + pointsPossible(q), 0);
+}
+function earnedPoints() {
+  return state.responses.reduce((sum, r) => sum + r.points, 0);
+}
+
+/* =====================================================================
+   SMALL HELPERS
+   ===================================================================== */
+function shuffle(list) {
+  const copy = list.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+// Show hyphens as true minus signs.
+function fmt(text) { return String(text).replace(/-/g, "−"); }
+
+// Tiny element builder: h("p", { class: "x" }, "text", childNode)
+function h(tag, props, ...children) {
+  const el = document.createElement(tag);
+  for (const [key, value] of Object.entries(props || {})) {
+    if (value === null || value === undefined || value === false) continue;
+    if (key === "class") el.className = value;
+    else if (key === "dataset") Object.assign(el.dataset, value);
+    else if (key.startsWith("on")) el.addEventListener(key.slice(2).toLowerCase(), value);
+    else el.setAttribute(key, value === true ? "" : value);
+  }
+  for (const child of children.flat(Infinity)) {
+    if (child === null || child === undefined || child === false) continue;
+    el.append(child instanceof Node ? child : String(child));
+  }
+  return el;
+}
+
+function expr(text) { return h("span", { class: "expr" }, fmt(text)); }
+
+const ICON_PATHS = {
+  check: "M5 12.5l4.5 4.5L19 7.5",
+  x: "M7 7l10 10M17 7L7 17",
+  info: "M12 11v6M12 7.5v.01",
+  alert: "M12 6.5v7M12 17.5v.01"
+};
+function icon(name) {
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("class", "icon");
+  const path = document.createElementNS(ns, "path");
+  path.setAttribute("d", ICON_PATHS[name]);
+  svg.append(path);
+  return svg;
+}
+
+function statusLabel(result, correctText, wrongText) {
+  return result === "correct"
+    ? h("span", { class: "status correct" }, icon("check"), correctText || "Correct")
+    : h("span", { class: "status wrong" }, icon("x"), wrongText || "Not correct");
+}
+
+function announce(text) {
+  const el = document.getElementById("announcer");
+  el.textContent = "";
+  setTimeout(() => { el.textContent = text; }, 60);
+}
+
+function announceMessage(message) {
+  if (message) announce([message.title, ...message.body.map(fmt)].join(" "));
+}
+
+/* =====================================================================
+   RENDERING
+   The whole screen is rebuilt after each change. Focus is put back on
+   the element with the same data-focus-key so keyboard users keep their
+   place.
+   ===================================================================== */
+function render() {
+  const active = document.activeElement;
+  const key = pendingFocusKey || (active && active.dataset ? active.dataset.focusKey : null);
+  pendingFocusKey = null;
+
+  const app = document.getElementById("app");
+  app.replaceChildren(buildScreen());
+
+  if (key) {
+    const target = app.querySelector(`[data-focus-key="${key}"]`);
+    const fallback = app.querySelector('[data-focus-key="primary"]');
+    if (target && !target.disabled) target.focus();
+    else if (fallback) fallback.focus();
+  }
+}
+
+function buildScreen() {
+  if (state.screen === "intro") return buildIntro();
+  if (state.screen === "results") return buildResults();
+  return buildQuiz();
+}
+
+function buildIntro() {
+  const total = totalPoints();
+  return h("section", { class: "card intro", "aria-labelledby": "intro-heading" },
+    h("h2", { id: "intro-heading", tabindex: "-1", dataset: { focusKey: "heading" } }, "Directions"),
+    h("p", {}, `Work through ${QUIZ_QUESTIONS.length} questions, one at a time. The first is a matching activity and the rest are multiple choice, including two word problems.`),
+    h("div", { class: "rule" },
+      h("p", { class: "rule-title" }, "The key rule"),
+      h("p", { style: "margin:0" }, "Dividing by a fraction is the same as multiplying by its reciprocal (flip the second fraction)."),
+      h("p", { class: "rule-example" }, expr("2/3 ÷ 1/4"), " = ", expr("2/3 × 4"), " = ", expr("8/3"))
+    ),
+    h("ul", { class: "facts" },
+      h("li", {}, "Write mixed numbers as improper fractions before you multiply or divide."),
+      h("li", {}, "You get two tries on each question. If the second try is still not right, the answer is shown."),
+      h("li", {}, `The quiz is worth ${total} points: one point for each matching pair and one point for each multiple choice question.`)
+    ),
+    h("div", { class: "actions" },
+      h("button", { type: "button", class: "btn btn-primary", dataset: { focusKey: "start" }, onclick: startQuiz }, "Start Quiz")
+    )
+  );
+}
+
+function buildQuiz() {
+  const question = currentQuestion();
+  const response = currentResponse();
+  const total = QUIZ_QUESTIONS.length;
+  const done = state.index + (response.completed ? 1 : 0);
+  const isLast = state.index === total - 1;
+
+  let primaryLabel = "Check Answer";
+  if (response.completed) primaryLabel = isLast ? "See Results" : "Next Question";
+
+  return h("section", { class: "card", "aria-labelledby": "q-heading" },
+    h("div", { class: "progress-row" },
+      h("h2", { id: "q-heading", tabindex: "-1", dataset: { focusKey: "heading" } }, `Question ${state.index + 1} of ${total}`),
+      h("span", { class: "kind" }, question.type === "match" ? "Matching" : "Multiple choice")
+    ),
+    h("div", {
+      class: "progress-track",
+      role: "progressbar",
+      "aria-label": "Quiz progress",
+      "aria-valuemin": "0",
+      "aria-valuemax": String(total),
+      "aria-valuenow": String(done),
+      "aria-valuetext": `${done} of ${total} questions finished`
+    }, h("div", { class: "progress-fill", style: `width:${(done / total) * 100}%` })),
+    question.type === "mc" ? buildMultipleChoice(question, response) : buildMatching(question, response),
+    response.message && buildFeedback(response.message),
+    h("div", { class: "actions" },
+      h("button", {
+        type: "button",
+        class: "btn btn-primary",
+        dataset: { focusKey: "primary" },
+        onclick: response.completed ? goToNext : checkAnswer
+      }, primaryLabel)
+    )
+  );
+}
+
+function buildFeedback(message) {
+  const icons = { success: "check", error: "alert", reveal: "x", info: "info" };
+  return h("div", { class: `feedback ${message.kind}` },
+    h("span", { class: "feedback-icon" }, icon(icons[message.kind])),
+    h("div", {},
+      h("p", { class: "feedback-title" }, message.title),
+      message.body.map((text) => h("p", {}, fmt(text)))
+    )
+  );
+}
+
+/* ---------- Multiple choice ---------- */
+function buildMultipleChoice(question, response) {
+  return h("fieldset", { class: "choices" },
+    question.text
+      ? h("legend", { class: "prompt prompt-word" }, question.text)
+      : h("legend", { class: "prompt" }, "What is ", expr(question.expression), "?"),
+    question.choices.map((choice, i) => {
+      const isWrong = response.wrong.includes(i);
+      // The correct choice is only marked once the question is finished.
+      const isCorrect = response.completed && i === question.answer;
+      const locked = response.completed || isWrong;
+      let status = null;
+      if (isCorrect) status = statusLabel("correct", response.points ? "Correct" : "Correct answer");
+      else if (isWrong) status = statusLabel("wrong", "Not correct");
+
+      const classes = ["choice"];
+      if (isWrong) classes.push("is-wrong");
+      if (isCorrect) classes.push("is-correct");
+      if (locked) classes.push("is-locked");
+
+      return h("label", { class: classes.join(" ") },
+        h("input", {
+          type: "radio",
+          name: `answer-${question.id}`,
+          value: String(i),
+          checked: response.selected === i,
+          disabled: locked,
+          dataset: { focusKey: `choice-${i}` },
+          onchange: () => selectChoice(i)
+        }),
+        h("span", { class: "letter" }, `${LETTERS[i]}.`),
+        expr(choice),
+        status
+      );
+    })
+  );
+}
+
+function selectChoice(i) {
+  const response = currentResponse();
+  if (response.completed || response.wrong.includes(i)) return;
+  response.selected = i;
+  if (response.message && response.message.kind === "info") response.message = null;
+  render();
+}
+
+function checkMultipleChoice(question, response) {
+  if (response.selected === null) {
+    response.message = {
+      kind: "info",
+      title: "Choose an answer first.",
+      body: ["Select one of the answer choices, then press Check Answer."]
+    };
+    return;
+  }
+
+  response.attempts++;
+  response.history.push(response.selected);
+  const correctText = `${LETTERS[question.answer]}. ${question.choices[question.answer]}`;
+
+  if (response.selected === question.answer) {
+    response.completed = true;
+    response.points = 1;
+    response.message = {
+      kind: "success",
+      title: response.attempts === 1 ? "Correct! Nice work." : "Correct on your second try! Nice work.",
+      body: [question.explanation]
+    };
+  } else if (response.attempts < MAX_ATTEMPTS) {
+    response.wrong.push(response.selected);
+    response.selected = null;
+    response.message = {
+      kind: "error",
+      title: "Not quite. You have one more try.",
+      body: [KEY_RULE, question.hint]
+    };
+  } else {
+    response.wrong.push(response.selected);
+    response.completed = true;
+    response.points = 0;
+    response.message = {
+      kind: "reveal",
+      title: "Not this time, but you'll get it.",
+      body: [`The correct answer is ${correctText}.`, question.explanation]
+    };
+  }
+}
+
+/* ---------- Matching ----------
+   The student picks one item on either side, then an item on the other
+   side, to make a pair. Each right item can belong to only one pair, so
+   pairing it again moves it to the new left item. After a first check
+   the correct pairs lock; wrong pairs stay marked until they change. */
+function buildMatching(question, response) {
+  const rightById = Object.fromEntries(question.right.map((item) => [item.id, item]));
+  const letterFor = (rightId) => LETTERS[response.rightOrder.indexOf(rightId)];
+  const leftFor = (rightId) => Object.keys(response.pairs).find((l) => response.pairs[l] === rightId);
+  const lockedRights = response.locked.map((l) => response.pairs[l]);
+  const pairCount = Object.keys(response.pairs).length;
+
+  const leftItems = question.left.map((item, i) => {
+    const rightId = response.pairs[item.id];
+    return buildMatchItem({
+      tag: String(i + 1),
+      text: item.text,
+      partner: rightId ? letterFor(rightId) : null,
+      arrow: "→",
+      active: response.activeLeft === item.id,
+      result: response.results[item.id],
+      disabled: response.completed || response.locked.includes(item.id),
+      focusKey: item.id,
+      onclick: () => selectLeft(item.id)
+    });
+  });
+
+  const rightItems = response.rightOrder.map((rightId) => {
+    const leftId = leftFor(rightId);
+    return buildMatchItem({
+      tag: letterFor(rightId),
+      text: rightById[rightId].text,
+      partner: leftId ? String(question.left.findIndex((l) => l.id === leftId) + 1) : null,
+      arrow: "←",
+      active: response.activeRight === rightId,
+      result: leftId ? response.results[leftId] : undefined,
+      disabled: response.completed || lockedRights.includes(rightId),
+      focusKey: rightId,
+      onclick: () => selectRight(rightId)
+    });
+  });
+
+  const summaryRows = question.left.map((item, i) => {
+    const rightId = response.pairs[item.id];
+    const result = response.results[item.id];
+    const correctId = question.answers[item.id];
+    const canRemove = rightId && !response.completed && !response.locked.includes(item.id);
+    return h("li", { class: "pair-row" },
+      h("span", {},
+        h("strong", {}, `${i + 1}.`), " ", expr(item.text), " → ",
+        rightId
+          ? [h("strong", {}, `${letterFor(rightId)}.`), " ", expr(rightById[rightId].text)]
+          : h("span", { class: "muted" }, "not matched yet")
+      ),
+      result && statusLabel(result, "Correct", "Not a match"),
+      canRemove && h("button", {
+        type: "button",
+        class: "remove-btn",
+        "aria-label": `Remove pair ${i + 1}`,
+        dataset: { focusKey: `remove-${item.id}` },
+        onclick: () => removePair(item.id)
+      }, icon("x")),
+      response.completed && result === "wrong" && h("p", { class: "pair-detail" },
+        "Correct match: ", h("strong", {}, `${letterFor(correctId)}.`), " ", expr(rightById[correctId].text)),
+      response.completed && h("p", { class: "pair-detail muted" }, fmt(question.explanations[item.id]))
+    );
+  });
+
+  return h("div", {},
+    h("p", { class: "prompt", style: "font-size:1.25rem" }, question.prompt),
+    h("p", { class: "match-help" },
+      "Select an expression on the left, then select its match on the right. To change a pair, select the expression again and choose a new match. ",
+      "With a keyboard, use Tab to move, Enter or Space to select, and Escape to cancel."),
+    h("div", { class: "match-grid" },
+      h("div", { class: "match-col" },
+        h("h3", { id: "left-heading" }, "Expressions"),
+        h("ul", { class: "match-list", "aria-labelledby": "left-heading" }, leftItems.map((b) => h("li", {}, b)))
+      ),
+      h("div", { class: "match-col" },
+        h("h3", { id: "right-heading" }, "Equivalent forms"),
+        h("ul", { class: "match-list", "aria-labelledby": "right-heading" }, rightItems.map((b) => h("li", {}, b)))
+      )
+    ),
+    h("section", { class: "pairs", "aria-labelledby": "pairs-heading" },
+      h("h3", { id: "pairs-heading" }, `Your pairs (${pairCount} of ${question.left.length})`),
+      h("ul", {}, summaryRows)
+    )
+  );
+}
+
+function buildMatchItem(opts) {
+  const classes = ["match-item"];
+  if (opts.partner) classes.push("is-paired");
+  if (opts.active) classes.push("is-active");
+  if (opts.result && !opts.active) classes.push(`is-${opts.result}`);
+
+  let stateLine = null;
+  if (opts.active) stateLine = h("span", { class: "match-state" }, "Selected: now pick its match");
+  else if (opts.result === "correct") stateLine = h("span", { class: "match-state" }, icon("check"), "Correct");
+  else if (opts.result === "wrong") stateLine = h("span", { class: "match-state" }, icon("x"), "Not a match");
+
+  return h("button", {
+    type: "button",
+    class: classes.join(" "),
+    "aria-pressed": String(opts.active),
+    disabled: opts.disabled,
+    dataset: { focusKey: opts.focusKey },
+    onclick: opts.onclick
+  },
+    h("span", { class: "match-top" },
+      h("span", { class: "match-tag" }, `${opts.tag}.`),
+      opts.partner && h("span", { class: "badge" },
+        h("span", { class: "sr-only" }, ", matched with "),
+        h("span", { "aria-hidden": "true" }, `${opts.arrow} `),
+        opts.partner)
+    ),
+    expr(opts.text),
+    stateLine
+  );
+}
+
+function selectLeft(leftId) {
+  const response = currentResponse();
+  if (response.completed || response.locked.includes(leftId)) return;
+  if (response.activeRight) {
+    setPair(response, leftId, response.activeRight);
+    response.activeRight = null;
+  } else {
+    response.activeLeft = response.activeLeft === leftId ? null : leftId;
+    response.activeRight = null;
+  }
+  render();
+}
+
+function selectRight(rightId) {
+  const response = currentResponse();
+  if (response.completed) return;
+  if (response.activeLeft) {
+    setPair(response, response.activeLeft, rightId);
+    response.activeLeft = null;
+  } else {
+    response.activeRight = response.activeRight === rightId ? null : rightId;
+  }
+  render();
+}
+
+function setPair(response, leftId, rightId) {
+  const question = currentQuestion();
+  // A right item can only be in one pair: unpair whoever had it before.
+  for (const [otherLeft, otherRight] of Object.entries(response.pairs)) {
+    if (otherRight === rightId && otherLeft !== leftId) {
+      delete response.pairs[otherLeft];
+      delete response.results[otherLeft];
+    }
+  }
+  response.pairs[leftId] = rightId;
+  delete response.results[leftId]; // a changed pair loses its old mark
+  if (response.message && response.message.kind === "info") response.message = null;
+
+  const left = question.left.find((l) => l.id === leftId);
+  const right = question.right.find((r) => r.id === rightId);
+  announce(`Paired ${fmt(left.text)} with ${fmt(right.text)}.`);
+}
+
+function removePair(leftId) {
+  const response = currentResponse();
+  if (response.completed || response.locked.includes(leftId)) return;
+  delete response.pairs[leftId];
+  delete response.results[leftId];
+  pendingFocusKey = leftId;
+  announce("Pair removed.");
+  render();
+}
+
+function clearMatchSelection() {
+  const response = currentResponse();
+  if (!response.activeLeft && !response.activeRight) return;
+  response.activeLeft = null;
+  response.activeRight = null;
+  announce("Selection cancelled.");
+  render();
+}
+
+function checkMatching(question, response) {
+  const total = question.left.length;
+  const unpaired = question.left.filter((l) => !response.pairs[l.id]).length;
+  if (unpaired > 0) {
+    response.message = {
+      kind: "info",
+      title: `Match all ${total} expressions first.`,
+      body: [`${unpaired} ${unpaired === 1 ? "expression still needs" : "expressions still need"} a partner.`]
+    };
+    return;
+  }
+
+  // On the retry, make sure at least one marked pair was changed so a stray
+  // click doesn't use up the second try.
+  const unchangedWrong = question.left.some((l) => response.results[l.id] === "wrong");
+  const anyChanged = question.left.some((l) => !response.locked.includes(l.id) && !response.results[l.id]);
+  if (response.attempts > 0 && unchangedWrong && !anyChanged) {
+    response.message = {
+      kind: "info",
+      title: "Change a pair first.",
+      body: ["Choose a new partner for at least one pair marked Not a match, then press Check Answer."]
+    };
+    return;
+  }
+
+  response.attempts++;
+  response.activeLeft = null;
+  response.activeRight = null;
+
+  let correct = 0;
+  for (const item of question.left) {
+    const ok = response.pairs[item.id] === question.answers[item.id];
+    response.results[item.id] = ok ? "correct" : "wrong";
+    if (ok) correct++;
+  }
+
+  if (correct === total) {
+    response.completed = true;
+    response.points = total;
+    response.message = {
+      kind: "success",
+      title: response.attempts === 1 ? `All ${total} pairs match. Nice work!` : `All ${total} pairs match on your second try. Nice work!`,
+      body: ["Each pair has the same value. You can read why under Your pairs."]
+    };
+  } else if (response.attempts < MAX_ATTEMPTS) {
+    response.locked = question.left.filter((l) => response.results[l.id] === "correct").map((l) => l.id);
+    response.message = {
+      kind: "error",
+      title: `${correct} of ${total} pairs are correct. You have one more try.`,
+      body: ["The correct pairs are locked in. Give the pairs marked Not a match a new partner.", MATCH_GOAL]
+    };
+  } else {
+    response.completed = true;
+    response.points = correct;
+    response.message = {
+      kind: "reveal",
+      title: `You matched ${correct} of ${total} pairs.`,
+      body: ["The correct matches and explanations are shown under Your pairs.", MATCH_GOAL]
+    };
+  }
+}
+
+/* ---------- Navigation ---------- */
+function startQuiz() {
+  state.screen = "quiz";
+  state.index = 0;
+  pendingFocusKey = "heading";
+  render();
+}
+
+function checkAnswer() {
+  const question = currentQuestion();
+  const response = currentResponse();
+  if (response.completed) return; // never score a question twice
+
+  if (question.type === "mc") checkMultipleChoice(question, response);
+  else checkMatching(question, response);
+
+  announceMessage(response.message);
+  pendingFocusKey = "primary";
+  render();
+}
+
+function goToNext() {
+  if (!currentResponse().completed) return;
+  if (state.index < QUIZ_QUESTIONS.length - 1) {
+    state.index++;
+  } else {
+    state.screen = "results";
+  }
+  pendingFocusKey = "heading";
+  window.scrollTo(0, 0);
+  render();
+}
+
+function restartQuiz() {
+  state = createInitialState();
+  state.screen = "quiz";
+  pendingFocusKey = "heading";
+  window.scrollTo(0, 0);
+  render();
+}
+
+/* =====================================================================
+   RESULTS
+   ===================================================================== */
+function resultMessage(percent) {
+  if (percent === 100) return "Perfect score! You really know how to multiply and divide fractions and decimals.";
+  if (percent >= 80) return "Great work! Look over the review below to see what you missed.";
+  if (percent >= 60) return "Good effort. Read the explanations below, then try again to build your confidence.";
+  return "Keep practicing. Remember that dividing by a fraction is the same as multiplying by its reciprocal. Read through the review, then give it another try.";
+}
+
+function buildResults() {
+  const total = totalPoints();
+  const earned = earnedPoints();
+  const percent = Math.round((earned / total) * 100);
+
+  return h("section", { class: "card results", "aria-labelledby": "results-heading" },
+    h("h2", { id: "results-heading", tabindex: "-1", dataset: { focusKey: "heading" } }, "Your Results"),
+    h("div", { class: "score-summary" },
+      h("p", { class: "score-big" }, `${earned} / ${total}`, h("small", {}, " points")),
+      h("p", { class: "score-pct" }, `${percent}%`),
+      h("p", {}, `You got ${earned} of ${total} points correct.`)
+    ),
+    h("p", { class: "result-message" }, resultMessage(percent)),
+    h("h3", {}, "Review"),
+    h("ol", { class: "review" }, QUIZ_QUESTIONS.map((q, i) => buildReviewItem(q, state.responses[i], i))),
+    h("div", { class: "actions" },
+      h("button", { type: "button", class: "btn btn-primary", dataset: { focusKey: "primary" }, onclick: restartQuiz }, "Try Again")
+    )
+  );
+}
+
+function buildReviewItem(question, response, index) {
+  const possible = pointsPossible(question);
+  const full = response.points === possible;
+  let itemClass = "review-item";
+  if (response.points === 0) itemClass += " is-wrong";
+  else if (!full) itemClass += " is-partial";
+
+  const header = (title) => h("div", { class: "review-head" },
+    h("h4", {}, title),
+    statusLabel(full ? "correct" : "wrong", "Correct", response.points ? "Partly correct" : "Incorrect"),
+    h("span", { class: "review-points" }, `${response.points} / ${possible} ${possible === 1 ? "point" : "points"}`)
+  );
+  const triesNote = response.attempts > 1 && response.points > 0
+    ? h("p", { class: "review-note" }, "Took two tries.")
+    : null;
+
+  if (question.type === "mc") {
+    const answerText = (i) => `${LETTERS[i]}. ${fmt(question.choices[i])}`;
+    return h("li", { class: itemClass },
+      header(`Question ${index + 1}`),
+      question.text
+        ? h("p", { style: "margin-bottom:0" }, question.text)
+        : h("p", { style: "margin-bottom:0" }, "What is ", expr(question.expression), "?"),
+      h("dl", {},
+        h("dt", {}, response.history.length > 1 ? "Your answers" : "Your answer"),
+        h("dd", {}, response.history.map(answerText).join(", then ")),
+        h("dt", {}, "Correct answer"),
+        h("dd", {}, answerText(question.answer))
+      ),
+      triesNote,
+      h("p", { class: "review-expl" }, fmt(question.explanation))
+    );
+  }
+
+  const rightById = Object.fromEntries(question.right.map((item) => [item.id, item]));
+  return h("li", { class: itemClass },
+    header(`Question ${index + 1}: Matching`),
+    triesNote,
+    h("ul", { class: "review-pairs" }, question.left.map((item) => {
+      const chosen = response.pairs[item.id];
+      const correctId = question.answers[item.id];
+      return h("li", {},
+        expr(item.text), " → ", expr(rightById[chosen].text), " ",
+        statusLabel(chosen === correctId ? "correct" : "wrong", "Correct", "Not a match"),
+        chosen !== correctId && h("span", {}, " Correct match: ", expr(rightById[correctId].text)),
+        h("br"),
+        h("span", { class: "muted" }, fmt(question.explanations[item.id]))
+      );
+    }))
+  );
+}
+
+/* =====================================================================
+   START
+   ===================================================================== */
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && state.screen === "quiz" && currentQuestion().type === "match") {
+    clearMatchSelection();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
