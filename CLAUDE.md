@@ -6,7 +6,7 @@ Short practice quizzes for sixth-grade students. Plain static HTML hosted on **G
 - `index.html`: the landing page. It has one `<h2>` section per topic, each with a `<ul class="quiz-list">` of quiz cards.
 - `<topic>_quiz<N>/index.html`: one self-contained quiz per folder, with its own CSS and JavaScript. Current quizzes:
   - `integer_quiz1/`, `integer_quiz2/`: integer addition and subtraction
-  - `fraction_decimal_quiz1/`: multiplying decimals and fractions (choose all that apply), decimal patterns, and fruit price word problems
+  - `fraction_decimal_quiz1/`, `fraction_decimal_quiz2/`: multiplying decimals and fractions (choose all that apply), decimal patterns, and fruit price word problems. Same format, different numbers.
 
 ## Preview locally
 Opening files directly (`file://`) breaks the folder links, because only a web server loads `index.html` for a folder. Run this from the repo root and open http://localhost:8000:
@@ -16,14 +16,14 @@ python3 -m http.server 8000
 The server shows whatever branch is checked out.
 
 ## Adding a quiz
-1. Copy the **newest** quiz folder as the template. Right now that's `fraction_decimal_quiz1/`, the only one that supports the word-problem `text` field and the `select` type.
+1. Copy the **newest** quiz folder as the template. Right now that's `fraction_decimal_quiz2/`. The fraction quizzes are the only ones that support the word-problem `text` field and the `select` type.
 2. Replace the `QUIZ_QUESTIONS` array. The comment block above it documents the format.
 3. Update the topic-specific text: `<title>`, `<h1>`, the key rule box and intro sentence in `buildIntro()`, `KEY_RULE`, `MATCH_GOAL` and `resultMessage()`.
 4. On the landing page, add a card to the topic's existing section, or add a new `<h2>` and `<ul class="quiz-list">` for a new topic. CSS already spaces consecutive sections.
 
 ### Question format
 - `mc`: `expression` (shown as "What is …?"), optional `text` (a word problem shown instead), 4 `choices`, `answer` (0-based index), `hint` (shown after the first miss) and `explanation`. Worth 1 point.
-- `select` ("choose all that apply", only in `fraction_decimal_quiz1/`): `prompt`, `choices`, `answers` (array of 0-based indexes), `hint` and `explanation`. Worth 1 point per correct box. After the last try, the score is correct boxes checked minus wrong boxes checked, never below 0.
+- `select` ("choose all that apply", only in the `fraction_decimal_quiz*/` folders): `prompt`, `choices`, `answers` (array of 0-based indexes), `hint` and `explanation`. Worth 1 point per correct box. After the last try, the score is correct boxes checked minus wrong boxes checked, never below 0.
 - `match`: `left` and `right` item lists, `answers` (leftId → rightId) and `explanations` per left item. Worth 1 point per pair.
 - Students get two tries per question (`MAX_ATTEMPTS`), and results show a full review.
 - `fmt()` displays every `-` as a minus sign, so don't use hyphenated words in any text.
