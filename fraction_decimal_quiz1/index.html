@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Multiplying &amp; Dividing Fractions and Decimals Practice Quiz</title>
+<title>Fractions and Decimals: Multiplying, Dividing and Word Problems</title>
 <style>
   :root {
     --bg: #f7f4ee;
@@ -408,7 +408,7 @@
 <body>
 <div class="page">
   <header>
-    <h1>Multiplying &amp; Dividing Fractions and Decimals Practice Quiz</h1>
+    <h1>Fractions and Decimals: Multiplying, Dividing and Word Problems</h1>
   </header>
   <main id="app">
     <noscript><p class="card">This quiz needs JavaScript turned on to run.</p></noscript>
@@ -439,6 +439,20 @@
        explanation: "..."               // shown when finished and in the review
      }
 
+   Choose all that apply (one point per correct box):
+     {
+       type: "select",
+       id: "unique-id",
+       prompt: "Which expressions are equal to 0.24? Choose all that apply.",
+       choices: ["6 × 0.04", "6 × 4/10", ...],
+       answers: [0, 2, 3],              // indexes of every correct box
+       hint: "...",
+       explanation: "..."
+     }
+   Checking the exact set on either try earns every point. After the
+   last try, points = correct boxes checked minus wrong boxes checked
+   (never below 0).
+
    Matching activity (one point per pair):
      {
        type: "match",
@@ -452,110 +466,133 @@
      }
    ===================================================================== */
 const QUIZ_QUESTIONS = [
+  /* ---------- Choose all that apply ---------- */
   {
-    type: "match",
-    id: "match-1",
-    prompt: "Match each expression on the left with an equivalent expression or value on the right.",
-    left: [
-      { id: "L1", text: "3/4 ÷ 1/2" },
-      { id: "L2", text: "0.5 × 0.6" },
-      { id: "L3", text: "5 ÷ 1/3" },
-      { id: "L4", text: "1.2 ÷ 0.4" }
-    ],
-    right: [
-      { id: "RA", text: "12 ÷ 4" },
-      { id: "RB", text: "3/4 × 2" },
-      { id: "RC", text: "15" },
-      { id: "RD", text: "0.3" }
-    ],
-    shuffleRight: false,
-    answers: { L1: "RB", L2: "RD", L3: "RC", L4: "RA" },
-    explanations: {
-      L1: "Dividing by 1/2 is the same as multiplying by its reciprocal, 2: 3/4 ÷ 1/2 = 3/4 × 2 = 1 1/2.",
-      L2: "Multiply 5 × 6 = 30. There are two decimal places in all, so 0.5 × 0.6 = 0.30 = 0.3.",
-      L3: "Dividing by 1/3 is the same as multiplying by 3: 5 ÷ 1/3 = 5 × 3 = 15.",
-      L4: "Move the decimal point one place right in both numbers: 1.2 ÷ 0.4 = 12 ÷ 4 = 3."
-    }
+    type: "select",
+    id: "s1",
+    prompt: "Which expressions are equal to 0.24? Choose all that apply.",
+    choices: ["6 × 0.04", "6 × 4/10", "6/10 × 4/10", "0.06 × 4", "0.06 × 0.04"],
+    answers: [0, 2, 3],
+    hint: "Find each product, then count place value. Tenths × tenths gives hundredths (6/10 × 4/10 = 24/100). A whole number × tenths only gives tenths (6 × 4/10 = 24/10).",
+    explanation: "6 × 0.04 = 0.24, 6/10 × 4/10 = 24/100 = 0.24 and 0.06 × 4 = 0.24 are all equal to 0.24. But 6 × 4/10 = 24/10 = 2.4, which is ten times too big, and 0.06 × 0.04 = 0.0024, which is one hundred times too small."
+  },
+  {
+    type: "select",
+    id: "s2",
+    prompt: "Which expressions are equal to 0.35? Choose all that apply.",
+    choices: ["0.7 × 5", "7 × 5/100", "7/10 × 5/10", "0.07 × 0.5", "7 × 0.05"],
+    answers: [1, 2, 4],
+    hint: "Every choice uses 7 × 5 = 35. The question is where the decimal point goes. Count the decimal places, or the zeros in the denominators, in both factors together. 0.35 has two decimal places.",
+    explanation: "7 × 5/100 = 35/100 = 0.35, 7/10 × 5/10 = 35/100 = 0.35 and 7 × 0.05 = 0.35 each have two decimal places in all. But 0.7 × 5 = 3.5 has only one, and 0.07 × 0.5 = 0.035 has three."
+  },
+  {
+    type: "select",
+    id: "s3",
+    prompt: "Which expressions are equal to 0.6? Choose all that apply.",
+    choices: ["2 × 3/10", "0.2 × 0.3", "2/10 × 3", "2 × 0.03", "20 × 3/100"],
+    answers: [0, 2, 4],
+    hint: "Every choice uses 2 × 3 = 6. You want 6 tenths. Check whether each product gives tenths, hundredths or something else.",
+    explanation: "2 × 3/10 = 6/10 = 0.6, 2/10 × 3 = 6/10 = 0.6 and 20 × 3/100 = 60/100 = 0.6 are all equal to 0.6. But 0.2 × 0.3 = 0.06 and 2 × 0.03 = 0.06 are only 6 hundredths."
+  },
+
+  /* ---------- Patterns in multiplying decimals ---------- */
+  {
+    type: "mc",
+    id: "p1",
+    text: "Use the fact 18 × 215 = 3,870. What number makes 180 × ? = 3,870 true?",
+    expression: "3,870 ÷ 180",
+    choices: ["2,150", "2.15", "21.5", "215"],
+    answer: 2,
+    hint: "180 is 18 × 10. To keep the product the same, the other factor must be 10 times smaller than 215.",
+    explanation: "180 is ten times as big as 18, so the other factor must be ten times smaller than 215: 215 ÷ 10 = 21.5. Check: 180 × 21.5 = 3,870."
   },
   {
     type: "mc",
-    id: "q2",
-    expression: "2/3 × 3/5",
-    choices: ["2/5", "5/8", "10/9", "5/15"],
+    id: "p2",
+    text: "Use the fact 18 × 215 = 3,870. What number makes 1.8 × ? = 3,870 true?",
+    expression: "3,870 ÷ 1.8",
+    choices: ["2,150", "21.5", "21,500", "215"],
     answer: 0,
-    hint: "Multiply the tops (numerators) together and the bottoms (denominators) together, then simplify.",
-    explanation: "2/3 × 3/5 = (2 × 3)/(3 × 5) = 6/15, which simplifies to 2/5."
+    hint: "1.8 is 18 ÷ 10. To keep the product the same, the other factor must be 10 times bigger than 215.",
+    explanation: "1.8 is ten times smaller than 18, so the other factor must be ten times bigger than 215: 215 × 10 = 2,150. Check: 1.8 × 2,150 = 3,870."
   },
   {
     type: "mc",
-    id: "q3",
-    expression: "3/4 ÷ 3/8",
-    choices: ["9/32", "2", "1/2", "6"],
-    answer: 1,
-    hint: "Flip the second fraction and multiply: 3/4 × 8/3.",
-    explanation: "3/4 ÷ 3/8 = 3/4 × 8/3 = 24/12 = 2."
-  },
-  {
-    type: "mc",
-    id: "q4",
-    expression: "2 1/2 × 1 1/5",
-    choices: ["2 1/10", "2", "3 1/2", "3"],
+    id: "p3",
+    text: "Use the fact 36 × 125 = 4,500. What is 3.6 × 1.25?",
+    expression: "3.6 × 1.25",
+    choices: ["45", "0.45", "450", "4.5"],
     answer: 3,
-    hint: "Change each mixed number to an improper fraction first: 2 1/2 = 5/2 and 1 1/5 = 6/5.",
-    explanation: "2 1/2 × 1 1/5 = 5/2 × 6/5 = 30/10 = 3."
+    hint: "Start from 4,500. 3.6 has one decimal place and 1.25 has two, so the product has three decimal places.",
+    explanation: "3.6 × 1.25 has 1 + 2 = 3 decimal places, so move the decimal point in 4,500 three places left: 4.500 = 4.5. Another way: 3.6 is 36 ÷ 10 and 1.25 is 125 ÷ 100, so the answer is 4,500 ÷ 1,000 = 4.5."
   },
+
+  /* ---------- Decimal × fraction ---------- */
   {
     type: "mc",
-    id: "q5",
-    expression: "0.4 × 0.7",
-    choices: ["2.8", "1.1", "0.28", "0.028"],
-    answer: 2,
-    hint: "Multiply 4 × 7, then count the total number of decimal places in both numbers.",
-    explanation: "4 × 7 = 28. There are two decimal places in all, so 0.4 × 0.7 = 0.28."
-  },
-  {
-    type: "mc",
-    id: "q6",
-    expression: "3.6 ÷ 0.9",
-    choices: ["0.4", "4", "40", "3.24"],
+    id: "d1",
+    expression: "0.6 × 3/4",
+    choices: ["4.5", "0.45", "0.8", "1.35"],
     answer: 1,
-    hint: "Move the decimal point one place right in both numbers so you are dividing by a whole number.",
-    explanation: "3.6 ÷ 0.9 = 36 ÷ 9 = 4."
+    hint: "Write 0.6 as the fraction 6/10, then multiply the tops and multiply the bottoms.",
+    explanation: "0.6 × 3/4 = 6/10 × 3/4 = 18/40 = 45/100 = 0.45. Another way: 0.6 ÷ 4 = 0.15, then 0.15 × 3 = 0.45."
   },
   {
     type: "mc",
-    id: "q7",
-    expression: "1 1/2 ÷ 3/4",
-    choices: ["2", "1 1/8", "1/2", "4 1/2"],
+    id: "d2",
+    expression: "2.4 × 5/6",
+    choices: ["2.88", "0.2", "2", "20"],
+    answer: 2,
+    hint: "Divide 2.4 by the bottom number 6 first, then multiply by the top number 5.",
+    explanation: "2.4 ÷ 6 = 0.4, and 0.4 × 5 = 2. So 2.4 × 5/6 = 2."
+  },
+
+  /* ---------- Fruit price word problems ---------- */
+  {
+    type: "mc",
+    id: "w1",
+    text: "A store sells 3 bags of apples for $7.50. Each bag costs the same. How much does one bag cost?",
+    expression: "7.50 ÷ 3",
+    choices: ["$2.50", "$22.50", "$4.50", "$2.05"],
     answer: 0,
-    hint: "Write 1 1/2 as 3/2, then multiply by the reciprocal of 3/4.",
-    explanation: "1 1/2 ÷ 3/4 = 3/2 × 4/3 = 12/6 = 2."
+    hint: "The total cost is shared equally by 3 bags, so divide the total by 3.",
+    explanation: "$7.50 ÷ 3 = $2.50 for one bag. Check: 3 × $2.50 = $7.50."
   },
   {
     type: "mc",
-    id: "q8",
-    text: "A basket holds 24 apples. Students eat 3/8 of the apples at snack time. How many apples are left in the basket?",
-    expression: "24 × 3/8",
-    choices: ["9", "15", "21", "8"],
+    id: "w2",
+    text: "Grapes cost $2.40 per pound. Leo buys a bag of grapes that weighs 3/4 pound. How much does the bag cost?",
+    expression: "2.40 × 3/4",
+    choices: ["$3.20", "$0.18", "$3.15", "$1.80"],
+    answer: 3,
+    hint: "Multiply the price for one pound by the number of pounds: $2.40 × 3/4. Since the bag is less than 1 pound, it should cost less than $2.40.",
+    explanation: "$2.40 × 3/4: first $2.40 ÷ 4 = $0.60, then $0.60 × 3 = $1.80."
+  },
+  {
+    type: "mc",
+    id: "w3",
+    text: "Ben pays $12.50 for 5 bags of oranges. Each bag costs the same. How much would 3 bags cost?",
+    expression: "12.50 ÷ 5 × 3",
+    choices: ["$2.50", "$7.50", "$37.50", "$10.00"],
     answer: 1,
-    hint: "First find how many apples were eaten: 24 × 3/8. Then subtract that from 24.",
-    explanation: "24 × 3/8 = 9 apples were eaten, so 24 - 9 = 15 apples are left. Another way: 5/8 of the apples are left, and 24 × 5/8 = 15."
+    hint: "First find the cost of one bag: $12.50 ÷ 5. Then multiply by 3.",
+    explanation: "One bag costs $12.50 ÷ 5 = $2.50, so 3 bags cost 3 × $2.50 = $7.50."
   },
   {
     type: "mc",
-    id: "q9",
-    text: "Ana buys 2.5 pounds of grapes. She uses 0.4 of the grapes to make fruit cups. How many pounds of grapes are left?",
-    expression: "2.5 × 0.4",
-    choices: ["1", "0.6", "1.5", "2.1"],
+    id: "w4",
+    text: "A bag of mixed fruit weighs 2.5 pounds and costs $6. What is the price per pound?",
+    expression: "6 ÷ 2.5",
+    choices: ["$15.00", "$3.50", "$2.40", "$8.50"],
     answer: 2,
-    hint: "First find how many pounds she used: 2.5 × 0.4. Then subtract that from 2.5.",
-    explanation: "2.5 × 0.4 = 1 pound was used, so 2.5 - 1 = 1.5 pounds of grapes are left."
+    hint: "Price per pound means dollars ÷ pounds: $6 ÷ 2.5. Move the decimal point one place right in both numbers.",
+    explanation: "$6 ÷ 2.5 = 60 ÷ 25 = $2.40 per pound. Check: 2.5 × $2.40 = $6."
   }
 ];
 
 /* Settings */
 const MAX_ATTEMPTS = 2; // first try + one retry, then the answer is revealed
-const KEY_RULE = "Remember: to divide by a fraction, multiply by its reciprocal. To multiply fractions, multiply the tops and multiply the bottoms.";
+const KEY_RULE = "Remember: when you multiply decimals, the answer has as many decimal places as both factors together. To multiply by a fraction, multiply by the top and divide by the bottom.";
 const MATCH_GOAL = "Look for an expression with the same value. For example, 1/2 ÷ 1/4 is the same as 1/2 × 4.";
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
@@ -581,6 +618,11 @@ function createResponse(question) {
     // history: every choice the student checked, in order
     return { ...base, selected: null, wrong: [], history: [] };
   }
+  if (question.type === "select") {
+    // checked: boxes checked now. wrongLocked/rightLocked: boxes marked
+    // after the first try. history: the checked list from each try.
+    return { ...base, checked: [], wrongLocked: [], rightLocked: [], history: [] };
+  }
   const rightIds = question.right.map((item) => item.id);
   return {
     ...base,
@@ -597,7 +639,9 @@ function currentQuestion() { return QUIZ_QUESTIONS[state.index]; }
 function currentResponse() { return state.responses[state.index]; }
 
 function pointsPossible(question) {
-  return question.type === "match" ? question.left.length : 1;
+  if (question.type === "match") return question.left.length;
+  if (question.type === "select") return question.answers.length;
+  return 1;
 }
 function totalPoints() {
   return QUIZ_QUESTIONS.reduce((sum, q) => sum + pointsPossible(q), 0);
@@ -706,16 +750,17 @@ function buildIntro() {
   const total = totalPoints();
   return h("section", { class: "card intro", "aria-labelledby": "intro-heading" },
     h("h2", { id: "intro-heading", tabindex: "-1", dataset: { focusKey: "heading" } }, "Directions"),
-    h("p", {}, `Work through ${QUIZ_QUESTIONS.length} questions, one at a time. The first is a matching activity and the rest are multiple choice, including two word problems.`),
+    h("p", {}, `Work through ${QUIZ_QUESTIONS.length} questions, one at a time. The first three are choose all that apply. The rest are multiple choice, including decimal patterns and fruit price word problems.`),
     h("div", { class: "rule" },
       h("p", { class: "rule-title" }, "The key rule"),
-      h("p", { style: "margin:0" }, "Dividing by a fraction is the same as multiplying by its reciprocal (flip the second fraction)."),
-      h("p", { class: "rule-example" }, expr("2/3 ÷ 1/4"), " = ", expr("2/3 × 4"), " = ", expr("8/3"))
+      h("p", { style: "margin:0" }, "When you multiply decimals, count the decimal places in both factors. The answer has that many decimal places."),
+      h("p", { class: "rule-example" }, expr("0.06 × 4"), " = ", expr("0.24"), ", but ", expr("6 × 4/10"), " = ", expr("2.4"))
     ),
     h("ul", { class: "facts" },
-      h("li", {}, "Write mixed numbers as improper fractions before you multiply or divide."),
+      h("li", {}, "To multiply a decimal by a fraction, change the decimal to a fraction (0.6 = 6/10), or multiply by the top and divide by the bottom."),
+      h("li", {}, fmt("Patterns: 24 × 314 = 7,536, so 2.4 × 3,140 = 7,536 too. One factor was divided by 10 and the other was multiplied by 10.")),
       h("li", {}, "You get two tries on each question. If the second try is still not right, the answer is shown."),
-      h("li", {}, `The quiz is worth ${total} points: one point for each matching pair and one point for each multiple choice question.`)
+      h("li", {}, `The quiz is worth ${total} points: one point for each correct box in a choose all that apply question and one point for each multiple choice question.`)
     ),
     h("div", { class: "actions" },
       h("button", { type: "button", class: "btn btn-primary", dataset: { focusKey: "start" }, onclick: startQuiz }, "Start Quiz")
@@ -736,7 +781,7 @@ function buildQuiz() {
   return h("section", { class: "card", "aria-labelledby": "q-heading" },
     h("div", { class: "progress-row" },
       h("h2", { id: "q-heading", tabindex: "-1", dataset: { focusKey: "heading" } }, `Question ${state.index + 1} of ${total}`),
-      h("span", { class: "kind" }, question.type === "match" ? "Matching" : "Multiple choice")
+      h("span", { class: "kind" }, KIND_LABELS[question.type])
     ),
     h("div", {
       class: "progress-track",
@@ -747,7 +792,7 @@ function buildQuiz() {
       "aria-valuenow": String(done),
       "aria-valuetext": `${done} of ${total} questions finished`
     }, h("div", { class: "progress-fill", style: `width:${(done / total) * 100}%` })),
-    question.type === "mc" ? buildMultipleChoice(question, response) : buildMatching(question, response),
+    BUILDERS[question.type](question, response),
     response.message && buildFeedback(response.message),
     h("div", { class: "actions" },
       h("button", {
@@ -855,6 +900,126 @@ function checkMultipleChoice(question, response) {
       kind: "reveal",
       title: "Not this time, but you'll get it.",
       body: [`The correct answer is ${correctText}.`, question.explanation]
+    };
+  }
+}
+
+/* ---------- Choose all that apply ----------
+   After a first miss, checked boxes are marked: wrong ones are unchecked
+   and locked, correct ones stay checked and locked. The student then
+   looks for any correct boxes still missing. */
+function choiceList(question, ids) {
+  if (ids.length === 0) return "none";
+  return ids.slice().sort((a, b) => a - b)
+    .map((i) => `${LETTERS[i]}. ${fmt(question.choices[i])}`).join(", ");
+}
+
+function buildSelect(question, response) {
+  return h("fieldset", { class: "choices" },
+    h("legend", { class: "prompt prompt-word" }, fmt(question.prompt)),
+    h("p", { class: "match-help", style: "margin:0" }, "Check every answer that is correct. There is more than one."),
+    question.choices.map((choice, i) => {
+      const isAnswer = question.answers.includes(i);
+      const isChecked = response.checked.includes(i);
+      const isWrong = response.wrongLocked.includes(i) || (response.completed && isChecked && !isAnswer);
+      const isCorrect = response.rightLocked.includes(i) || (response.completed && isAnswer);
+      const locked = response.completed || response.wrongLocked.includes(i) || response.rightLocked.includes(i);
+      let status = null;
+      if (isCorrect) status = statusLabel("correct", isChecked ? "Correct" : "Correct answer");
+      else if (isWrong) status = statusLabel("wrong", "Not correct");
+
+      const classes = ["choice"];
+      if (isWrong) classes.push("is-wrong");
+      if (isCorrect) classes.push("is-correct");
+      if (locked) classes.push("is-locked");
+
+      return h("label", { class: classes.join(" ") },
+        h("input", {
+          type: "checkbox",
+          name: `answer-${question.id}`,
+          value: String(i),
+          checked: isChecked,
+          disabled: locked,
+          dataset: { focusKey: `choice-${i}` },
+          onchange: () => toggleSelect(i)
+        }),
+        h("span", { class: "letter" }, `${LETTERS[i]}.`),
+        expr(choice),
+        status
+      );
+    })
+  );
+}
+
+function toggleSelect(i) {
+  const response = currentResponse();
+  if (response.completed || response.wrongLocked.includes(i) || response.rightLocked.includes(i)) return;
+  if (response.checked.includes(i)) response.checked = response.checked.filter((c) => c !== i);
+  else response.checked.push(i);
+  if (response.message && response.message.kind === "info") response.message = null;
+  render();
+}
+
+function checkSelect(question, response) {
+  const total = question.answers.length;
+  if (response.checked.length === 0) {
+    response.message = {
+      kind: "info",
+      title: "Check at least one answer first.",
+      body: ["Check every answer that is correct, then press Check Answer."]
+    };
+    return;
+  }
+  // On the retry, make sure something new is checked so a stray click
+  // doesn't use up the second try (unless every correct box is already found).
+  const nothingNew = response.checked.length === response.rightLocked.length;
+  if (response.attempts > 0 && nothingNew && response.rightLocked.length < total) {
+    response.message = {
+      kind: "info",
+      title: "Check another answer first.",
+      body: ["Some correct answers are still missing. Check the ones you think are correct, then press Check Answer."]
+    };
+    return;
+  }
+
+  response.attempts++;
+  response.history.push(response.checked.slice().sort((a, b) => a - b));
+  const rightChecked = response.checked.filter((i) => question.answers.includes(i));
+  const wrongChecked = response.checked.filter((i) => !question.answers.includes(i));
+
+  if (rightChecked.length === total && wrongChecked.length === 0) {
+    response.completed = true;
+    response.points = total;
+    response.message = {
+      kind: "success",
+      title: response.attempts === 1 ? `You found all ${total} correct answers. Nice work!` : `You found all ${total} correct answers on your second try. Nice work!`,
+      body: [question.explanation]
+    };
+  } else if (response.attempts < MAX_ATTEMPTS) {
+    response.wrongLocked = wrongChecked;
+    response.rightLocked = rightChecked;
+    response.checked = rightChecked.slice();
+    let summary = `You found ${rightChecked.length} of ${total} correct answers.`;
+    if (wrongChecked.length === 1) summary += " One box you checked is not correct, so it is marked and unchecked.";
+    if (wrongChecked.length > 1) summary += ` ${wrongChecked.length} boxes you checked are not correct, so they are marked and unchecked.`;
+    if (rightChecked.length < total) summary += " Look for the correct answers you missed.";
+    else summary += " Press Check Answer to finish.";
+    response.message = {
+      kind: "error",
+      title: "Not quite. You have one more try.",
+      body: [summary, KEY_RULE, question.hint]
+    };
+  } else {
+    response.completed = true;
+    response.points = Math.max(0, rightChecked.length - wrongChecked.length);
+    response.message = {
+      kind: "reveal",
+      title: `You earned ${response.points} of ${total} points.`,
+      body: [
+        `The correct answers are ${choiceList(question, question.answers)}.`,
+        "Each correct box earns a point, and each wrong box takes one away.",
+        question.explanation
+      ]
     };
   }
 }
@@ -1104,6 +1269,11 @@ function checkMatching(question, response) {
   }
 }
 
+/* ---------- Question types ---------- */
+const KIND_LABELS = { mc: "Multiple choice", select: "Choose all that apply", match: "Matching" };
+const BUILDERS = { mc: buildMultipleChoice, select: buildSelect, match: buildMatching };
+const CHECKERS = { mc: checkMultipleChoice, select: checkSelect, match: checkMatching };
+
 /* ---------- Navigation ---------- */
 function startQuiz() {
   state.screen = "quiz";
@@ -1117,8 +1287,7 @@ function checkAnswer() {
   const response = currentResponse();
   if (response.completed) return; // never score a question twice
 
-  if (question.type === "mc") checkMultipleChoice(question, response);
-  else checkMatching(question, response);
+  CHECKERS[question.type](question, response);
 
   announceMessage(response.message);
   pendingFocusKey = "primary";
@@ -1149,10 +1318,10 @@ function restartQuiz() {
    RESULTS
    ===================================================================== */
 function resultMessage(percent) {
-  if (percent === 100) return "Perfect score! You really know how to multiply and divide fractions and decimals.";
+  if (percent === 100) return "Perfect score! You really know how to multiply decimals and fractions and work with prices.";
   if (percent >= 80) return "Great work! Look over the review below to see what you missed.";
   if (percent >= 60) return "Good effort. Read the explanations below, then try again to build your confidence.";
-  return "Keep practicing. Remember that dividing by a fraction is the same as multiplying by its reciprocal. Read through the review, then give it another try.";
+  return "Keep practicing. Count the decimal places in both factors, and for prices, divide the total cost to find the cost of one. Read through the review, then give it another try.";
 }
 
 function buildResults() {
@@ -1204,6 +1373,21 @@ function buildReviewItem(question, response, index) {
         h("dd", {}, response.history.map(answerText).join(", then ")),
         h("dt", {}, "Correct answer"),
         h("dd", {}, answerText(question.answer))
+      ),
+      triesNote,
+      h("p", { class: "review-expl" }, fmt(question.explanation))
+    );
+  }
+
+  if (question.type === "select") {
+    return h("li", { class: itemClass },
+      header(`Question ${index + 1}: Choose all`),
+      h("p", { style: "margin-bottom:0" }, fmt(question.prompt)),
+      h("dl", {},
+        h("dt", {}, "Your answers"),
+        h("dd", {}, choiceList(question, response.checked)),
+        h("dt", {}, "Correct answers"),
+        h("dd", {}, choiceList(question, question.answers))
       ),
       triesNote,
       h("p", { class: "review-expl" }, fmt(question.explanation))
